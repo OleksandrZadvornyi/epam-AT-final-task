@@ -6,10 +6,13 @@ describe('SauceDemo Login Tests', () => {
         await pages('login').open();
     });
 
-    it('UC-1: Login with empty credentials', async () => {
+    it(loginData.uc1.testName, async () => {
+        // Get data for this test
+        const data = loginData.uc1;
+
         // Type any credentials into "Username" and "Password" fields.
-        await pages('login').loginForm.input('username').setValue('Some User');
-        await pages('login').loginForm.input('password').setValue('Strong Password123');
+        await pages('login').loginForm.input('username').setValue(data.user);
+        await pages('login').loginForm.input('password').setValue(data.pass);
 
         // Clear the inputs.
         await pages('login').loginForm.clearInput('username');
@@ -20,15 +23,18 @@ describe('SauceDemo Login Tests', () => {
 
         // Check the error messages: "Username is required".
         const errorText = await pages('login').loginForm.errorMessage.getText();
-        expect(errorText).toContain('Username is required');
+        expect(errorText).toContain(data.expectedError);
     });
 
-    it('UC-2: Login with only username', async () => {
+    it(loginData.uc2.testName, async () => {
+        // Get data for this test
+        const data = loginData.uc2;
+
         // Type any credentials in username.
-        await pages('login').loginForm.input('username').setValue('Some User');
+        await pages('login').loginForm.input('username').setValue(data.user);
 
         // Enter password.
-        await pages('login').loginForm.input('password').setValue('Strong Password123');
+        await pages('login').loginForm.input('password').setValue(data.pass);
 
         // Clear the "Password" input.
         await pages('login').loginForm.clearInput('password');
@@ -38,11 +44,11 @@ describe('SauceDemo Login Tests', () => {
 
         // Check the error messages: "Password is required".
         const errorText = await pages('login').loginForm.errorMessage.getText();
-        expect(errorText).toContain('Password is required');
+        expect(errorText).toContain(data.expectedError);
     });
 
     describe('UC-3: Login Scenarios (Data-Driven)', () => {
-        loginData.forEach((data) => {
+        loginData.uc3.forEach((data) => {
             it(data.testName, async () => {
                 // Type credentials in username which are under "Accepted username are" sections.
                 await pages('login').loginForm.input('username').setValue(data.username);

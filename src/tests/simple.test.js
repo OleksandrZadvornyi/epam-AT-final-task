@@ -3,6 +3,7 @@ const loginData = require("../po/data/login.data");
 
 describe('SauceDemo Login Tests', () => {
     beforeEach(async () => {
+        // Open the login page before each test
         await pages('login').open();
     });
 

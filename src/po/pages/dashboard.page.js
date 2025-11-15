@@ -1,6 +1,11 @@
 const BasePage = require("./base.page");
 const HeaderComponent = require("../components/header.component");
 
+/**
+ * @class DashboardPage
+ * @description The Page Object for the main page.
+ * It inherits from BasePage and composes the HeaderComponent.
+ */
 class DashboardPage extends BasePage {
     constructor() {
         super("/inventory.html");

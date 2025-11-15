@@ -1,5 +1,5 @@
 const BasePage = require("./base.page");
-const HeaderComponent = require("../components/header.component");
+const { HeaderComponent } = require("../components");
 
 /**
  * @class DashboardPage

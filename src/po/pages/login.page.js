@@ -1,5 +1,5 @@
 const BasePage = require("./base.page");
-const LoginFormComponent = require("../components/login-form.component");
+const { LoginFormComponent } = require("../components");
 
 /**
  * @class LoginPage

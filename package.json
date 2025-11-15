@@ -3,7 +3,7 @@
   "description": "POM with WebDriverIO",
   "private": true,
   "scripts": {
-    "wdio": "wdio run ./src/config/wdio.conf.js"
+    "test": "wdio run ./src/config/wdio.conf.js"
   },
   "devDependencies": {
     "@wdio/cli": "^9.20.0",

@@ -1,4 +1,5 @@
 const { pages } = require("../po");
+const loginData = require("../po/data/login.data");
 
 describe('SauceDemo Login Tests', () => {
     beforeEach(async () => {
@@ -40,18 +41,29 @@ describe('SauceDemo Login Tests', () => {
         expect(errorText).toContain('Password is required');
     });
 
-    it('UC-3: Login with valid username and password', async () => {
-        // Type credentials in username which are under Accepted username are sections.
-        await pages('login').loginForm.input('username').setValue('standard_user');
+    describe('UC-3: Login Scenarios (Data-Driven)', () => {
+        loginData.forEach((data) => {
+            it(data.testName, async () => {
+                // Type credentials in username which are under "Accepted username are" sections.
+                await pages('login').loginForm.input('username').setValue(data.username);
 
-        // Enter password as secret sauce.
-        await pages('login').loginForm.input('password').setValue('secret_sauce');
+                // Enter password as secret sauce.
+                await pages('login').loginForm.input('password').setValue(data.password);
 
-        // Click on Login.
-        await pages('login').loginForm.loginButton.click();
+                // Click on Login.
+                await pages('login').loginForm.loginButton.click();
 
-        // Validate the title “Swag Labs” in the dashboard.
-        const title = await pages('dashboard').header.title.getText();
-        expect(title).toBe('Swag Labs');
+                // Validate the title “Swag Labs” in the dashboard.
+                if (data.shouldLogin) {
+                    // Validate successful login
+                    const title = await pages('dashboard').header.title.getText();
+                    expect(title).toBe('Swag Labs');
+                } else {
+                    // Validate error message
+                    const errorText = await pages('login').loginForm.errorMessage.getText();
+                    expect(errorText).toContain(data.expectedError);
+                }
+            });
+        });
     });
 });

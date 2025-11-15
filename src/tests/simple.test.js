@@ -10,15 +10,9 @@ describe('SauceDemo Login Tests', () => {
         await pages('login').loginForm.input('username').setValue('Some User');
         await pages('login').loginForm.input('password').setValue('Strong Password123');
 
-        // Clear the username input.
-        await pages('login').loginForm.input('username').click();
-        await browser.keys(['Control', 'a']);
-        await browser.keys('Backspace');
-
-        // Clear the password input.
-        await pages('login').loginForm.input('password').click();
-        await browser.keys(['Control', 'a']);
-        await browser.keys('Backspace');
+        // Clear the inputs.
+        await pages('login').loginForm.clearInput('username');
+        await pages('login').loginForm.clearInput('password');
 
         // Hit the "Login" button.
         await pages('login').loginForm.loginButton.click();
@@ -36,9 +30,7 @@ describe('SauceDemo Login Tests', () => {
         await pages('login').loginForm.input('password').setValue('Strong Password123');
 
         // Clear the "Password" input.
-        await pages('login').loginForm.input('password').click();
-        await browser.keys(['Control', 'a']);
-        await browser.keys('Backspace');
+        await pages('login').loginForm.clearInput('password');
 
         // Hit the "Login" button.
         await pages('login').loginForm.loginButton.click();

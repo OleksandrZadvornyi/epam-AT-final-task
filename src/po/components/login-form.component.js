@@ -24,6 +24,17 @@ class LoginFormComponent extends BaseComponent {
         };
         return this.rootElement.$(selectors[param.toLowerCase()]);
     }
+
+    /**
+     * Clears an input field by simulating "Select All" and "Backspace".
+     * @param param {'username' | 'password'} 
+     */
+    async clearInput(param) {
+        const inputElement = this.input(param);
+        await inputElement.click();
+        await browser.keys(['Control', 'a']);
+        await browser.keys('Backspace');
+    }
 }
 
 module.exports = LoginFormComponent;

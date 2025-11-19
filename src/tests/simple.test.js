@@ -1,5 +1,6 @@
 const { pages } = require("../po");
 const loginData = require("../po/data/login.data");
+const { expect } = require('chai');
 
 describe('SauceDemo Login Tests', () => {
     beforeEach(async () => {
@@ -24,7 +25,7 @@ describe('SauceDemo Login Tests', () => {
 
         // Check the error messages: "Username is required".
         const errorText = await pages('login').loginForm.errorMessage.getText();
-        expect(errorText).toContain(data.expectedError);
+        expect(errorText).to.include(data.expectedError);
     });
 
     it(loginData.uc2.testName, async () => {
@@ -45,7 +46,7 @@ describe('SauceDemo Login Tests', () => {
 
         // Check the error messages: "Password is required".
         const errorText = await pages('login').loginForm.errorMessage.getText();
-        expect(errorText).toContain(data.expectedError);
+        expect(errorText).to.include(data.expectedError);
     });
 
     describe('UC-3: Login Scenarios (Data-Driven)', () => {
@@ -64,11 +65,11 @@ describe('SauceDemo Login Tests', () => {
                 if (data.shouldLogin) {
                     // Validate successful login
                     const title = await pages('dashboard').header.title.getText();
-                    expect(title).toBe('Swag Labs');
+                    expect(title).to.equal('Swag Labs');
                 } else {
                     // Validate error message
                     const errorText = await pages('login').loginForm.errorMessage.getText();
-                    expect(errorText).toContain(data.expectedError);
+                    expect(errorText).to.include(data.expectedError);
                 }
             });
         });

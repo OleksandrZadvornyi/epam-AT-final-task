@@ -51,6 +51,18 @@ class LoginFormComponent extends BaseComponent {
         await browser.keys(['Control', 'a']);
         await browser.keys('Backspace');
     }
+
+    /**
+     * @method login
+     * @description Reusable method to perform a standard login action.
+     * @param {string} username 
+     * @param {string} password 
+     */
+    async login(username, password) {
+        await this.input('username').setValue(username);
+        await this.input('password').setValue(password);
+        await this.loginButton.click();
+    }
 }
 
 module.exports = LoginFormComponent;

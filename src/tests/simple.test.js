@@ -52,14 +52,8 @@ describe('SauceDemo Login Tests', () => {
     describe('UC-3: Login Scenarios (Data-Driven)', () => {
         loginData.uc3.forEach((data) => {
             it(data.testName, async () => {
-                // Type credentials in username which are under "Accepted username are" sections.
-                await pages('login').loginForm.input('username').setValue(data.username);
-
-                // Enter password as secret sauce.
-                await pages('login').loginForm.input('password').setValue(data.password);
-
-                // Click on Login.
-                await pages('login').loginForm.loginButton.click();
+                // Type credentials and click on login button.
+                await pages('login').loginForm.login(data.username, data.password);
 
                 // Validate the title “Swag Labs” in the dashboard.
                 if (data.shouldLogin) {
